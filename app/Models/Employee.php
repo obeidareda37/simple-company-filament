@@ -48,4 +48,8 @@ class Employee extends Model
         return $query->where('date_hired', '>=', now()->subYear());
     }
 
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
+    }
 }
