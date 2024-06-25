@@ -4,9 +4,11 @@ namespace App\Filament\Resources;
 
 use Carbon\Carbon;
 use App\Models\City;
+use App\Models\Team;
 use App\Models\State;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Facades\Filament;
 use Filament\Infolists\Infolist;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Notifications\Notification;
@@ -25,6 +27,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
+use function Laravel\Prompts\select;
 
 
 class EmployeeResource extends Resource
@@ -80,6 +83,9 @@ class EmployeeResource extends Resource
             ->schema([
                 Forms\Components\Section::make('Relationships')
                     ->schema([
+//                        Forms\Components\Select::make('team_id')
+//                            ->options(fn(Get $get): Collection => Team::query()
+//                                ->whereBelongsTo(Filament::getTenant())),
                         Forms\Components\Select::make('country_id')
                             ->relationship(name: 'country', titleAttribute: 'name')
                             ->searchable()
