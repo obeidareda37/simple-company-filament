@@ -81,11 +81,17 @@ class EmployeeResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Section::make('Team')
+                    ->schema([
+                        Forms\Components\Select::make('team_id')
+                            ->relationship(name: 'team', titleAttribute: 'name')
+                            ->searchable()
+                            ->preload(5)
+                            ->live()
+                            ->required(),
+                    ]),
                 Forms\Components\Section::make('Relationships')
                     ->schema([
-//                        Forms\Components\Select::make('team_id')
-//                            ->options(fn(Get $get): Collection => Team::query()
-//                                ->whereBelongsTo(Filament::getTenant())),
                         Forms\Components\Select::make('country_id')
                             ->relationship(name: 'country', titleAttribute: 'name')
                             ->searchable()
@@ -156,6 +162,9 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('team.name')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('country.name')
                     ->sortable()
                     ->searchable(),
