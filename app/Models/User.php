@@ -67,6 +67,6 @@ class User extends Authenticatable implements HasTenants
 
     public function isAdmin(): bool
     {
-        return $this->email === 'admin@example.com';
+        return $this->is_admin;
     }
 }
