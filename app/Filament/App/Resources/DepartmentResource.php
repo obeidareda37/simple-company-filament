@@ -1,54 +1,39 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\App\Resources;
 
-use Filament\Infolists\Infolist;
-use Illuminate\Database\Eloquent\Model;
-use Filament\Infolists\Components\Section;
-use Filament\Infolists\Components\TextEntry;
-use App\Filament\Resources\DepartmentResource\Pages;
-use App\Filament\Resources\DepartmentResource\RelationManagers;
+namespace App\Filament\App\Resources;
+
+use App\Filament\App\Resources\DepartmentResource\Pages;
+use App\Filament\App\Resources\DepartmentResource\RelationManagers;
 use App\Models\Department;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class DepartmentResource extends Resource
 {
     protected static ?string $model = Department::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
-
-    protected static ?string $navigationLabel = 'Department';
-
-    protected static ?string $modelLabel = 'Department';
-
-    protected static ?string $navigationGroup = 'System Management';
-
-    protected static ?int $navigationSort = 4;
-
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
-    }
-
-    public static function getNavigationBadgeColor(): string|array|null
-    {
-        return static::getModel()::count() > 10 ? 'warning' : 'success';
-    }
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Section::make('Department Details')
+                Forms\Components\Section::make('Department Details')
                     ->schema([
                         Forms\Components\TextInput::make('name')
-                            ->required(),
+                            ->required()
+                            ->maxLength(255),
                     ])
             ]);
     }
@@ -109,7 +94,7 @@ class DepartmentResource extends Resource
         return [
             'index'  => Pages\ListDepartments::route('/'),
             'create' => Pages\CreateDepartment::route('/create'),
-            // 'view'   => Pages\ViewDepartment::route('/{record}'),
+            'view'   => Pages\ViewDepartment::route('/{record}'),
             'edit'   => Pages\EditDepartment::route('/{record}/edit'),
         ];
     }
