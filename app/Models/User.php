@@ -64,4 +64,9 @@ class User extends Authenticatable implements HasTenants
     {
         return $this->belongsToMany(Team::class);
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->email === 'admin@example.com';
+    }
 }
